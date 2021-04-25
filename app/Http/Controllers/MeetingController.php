@@ -38,6 +38,10 @@ class MeetingController extends Controller
     public function store(Request $request)
     {
         $validatedData = $this->validate($request, Meeting::validationRules(), Meeting::validationMessages());
+        $meeting = Meeting::create($validatedData);
+        // return redirect()->url('/')->json()->with([
+        //     'status' => "Meeting has been saved.",
+        // ]);
     }
 
     /**
