@@ -15,6 +15,7 @@ class MeetingController extends Controller
     public function index()
     {
         //
+        return abort(404);
     }
 
     /**
@@ -24,7 +25,8 @@ class MeetingController extends Controller
      */
     public function create()
     {
-        //
+        
+        
     }
 
     /**
@@ -35,7 +37,7 @@ class MeetingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $this->validate($request, Meeting::validationRules(), Meeting::validationMessages());
     }
 
     /**
