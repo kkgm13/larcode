@@ -25,7 +25,7 @@ class MeetingController extends Controller
      */
     public function create()
     {
-        
+        return view('meeting.create');
         
     }
 
@@ -38,6 +38,7 @@ class MeetingController extends Controller
     public function store(Request $request)
     {
         $validatedData = $this->validate($request, Meeting::validationRules(), Meeting::validationMessages());
+        // Theoreticcal Issue: Due to the implementation of duration, it is tricky to request it directly from request
         $meeting = Meeting::create($validatedData);
         // return redirect()->url('/')->json()->with([
         //     'status' => "Meeting has been saved.",
@@ -63,7 +64,7 @@ class MeetingController extends Controller
      */
     public function edit(Meeting $meeting)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -75,7 +76,7 @@ class MeetingController extends Controller
      */
     public function update(Request $request, Meeting $meeting)
     {
-        //
+        return abort(404);
     }
 
     /**
