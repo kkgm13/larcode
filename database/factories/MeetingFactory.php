@@ -22,7 +22,9 @@ class MeetingFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->words(3,true),
+            'start'=> $this->faker->dateTimeBetween('+1 month','+1 Year'),
+            'duration' => $this->faker->randomDigit(),
         ];
     }
 }
