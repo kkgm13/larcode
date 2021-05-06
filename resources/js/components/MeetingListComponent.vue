@@ -11,12 +11,9 @@
 </template> 
 <script>
 import meetItem from "./MeetingComponent"
-import MeetItem from "./MeetingComponent.vue"
 export default {
     mounted() { // Standard mounting
         console.log('Meeting List Component mounted.')
-        // console.log(this.meetingList)
-        // console.log(meet)
     },
     components: {
         meetItem

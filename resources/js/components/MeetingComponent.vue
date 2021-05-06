@@ -5,7 +5,6 @@
 export default {
     mounted(){
         console.log("Single Meeting mounted.");
-        console.log(this.meet)
     },
     props:['meet'],
 }
