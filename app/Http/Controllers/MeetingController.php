@@ -37,14 +37,11 @@ class MeetingController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
         $validatedData = $this->validate($request, Meeting::validationRules(), Meeting::validationMessages());
         // Theoretical Issue: Due to the implementation of duration, it is tricky to request it directly from request
-        $meeting = Meeting::create($validatedData);        
-        return response()->json('The Meeting is added')
-            ->with([
-                'status' => "Meeting has been saved.",
-        ]);
+        // $meeting = Meeting::create($validatedD ata);        
+        return response()->json('The Meeting is added');
     }
 
     /**

@@ -1875,25 +1875,34 @@ var today = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
     console.log('Meeting Form Component mounted.');
-    console.log(today.toLocaleString());
   },
-  // data() {
-  //     return {
-  //         product: []
-  //     }
-  // },
+  data: function data() {
+    return {
+      meetItem: {
+        title: '',
+        duration: '',
+        start: ''
+      }
+    };
+  },
   methods: {
     addMeet: function addMeet() {
       var _this = this;
 
-      this.axios.post('/meetings', this.product)["catch"](function (err) {
-        return console.log(err);
+      // Check for errors
+      this.err = {}; // Actual posting information
+
+      console.log(this.meetItem);
+      axios.post('/meetings', this.meetItem).then(function (response) {
+        alert('Meeting Added...');
+      })["catch"](function (err) {
+        console.log(err);
       })["finally"](function () {
         return _this.loading = false;
       });
     }
   }
-}); // this.product = [{title: '', start: '', duration: 0}]
+});
 
 /***/ }),
 
@@ -37783,26 +37792,46 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", { attrs: { method: "post" } }, [
+  return _c(
+    "form",
+    {
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.addMeet($event)
+        }
+      }
+    },
+    [
       _c("div", { staticClass: "form-group" }, [
         _c("label", { staticClass: "form-label", attrs: { for: "title" } }, [
           _vm._v("Meeting Title")
         ]),
         _vm._v(" "),
         _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.meetItem.title,
+              expression: "meetItem.title"
+            }
+          ],
           staticClass: "form-control",
           attrs: {
             placeholder: "Meeting Title",
             type: "text",
             name: "title",
             id: "title"
+          },
+          domProps: { value: _vm.meetItem.title },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.meetItem, "title", $event.target.value)
+            }
           }
         })
       ]),
@@ -37813,8 +37842,25 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.meetItem.start,
+              expression: "meetItem.start"
+            }
+          ],
           staticClass: "form-control",
-          attrs: { type: "datetime-local", name: "start", id: "start" }
+          attrs: { type: "datetime-local", name: "start", id: "start" },
+          domProps: { value: _vm.meetItem.start },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.meetItem, "start", $event.target.value)
+            }
+          }
         })
       ]),
       _vm._v(" "),
@@ -37824,6 +37870,14 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.meetItem.duration,
+              expression: "meetItem.duration"
+            }
+          ],
           staticClass: "form-control",
           attrs: {
             type: "number",
@@ -37832,26 +37886,43 @@ var staticRenderFns = [
             min: "1",
             placeholder: "Hours",
             max: "9"
+          },
+          domProps: { value: _vm.meetItem.duration },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.meetItem, "duration", $event.target.value)
+            }
           }
         })
       ]),
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
-      _c("div", { staticClass: "row form-group" }, [
-        _c("div", { staticClass: "col-md-6 col-sm-12 py-1" }, [
-          _c("input", {
-            staticClass: "btn btn-success btn-block",
-            attrs: { type: "submit", value: "Create Meeting" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6 col-sm-12 py-1" }, [
-          _c("input", {
-            staticClass: "btn btn-danger btn-block",
-            attrs: { type: "reset", value: "Reset" }
-          })
-        ])
+      _vm._m(0)
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row form-group" }, [
+      _c("div", { staticClass: "col-md-6 col-sm-12 py-1" }, [
+        _c("input", {
+          staticClass: "btn btn-success btn-block",
+          attrs: { type: "submit", value: "Create Meeting" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6 col-sm-12 py-1" }, [
+        _c("input", {
+          staticClass: "btn btn-danger btn-block",
+          attrs: { type: "reset", value: "Reset" }
+        })
       ])
     ])
   }

@@ -1,16 +1,16 @@
 <template>
-<form  method="post">
+<form @submit.prevent="addMeet" >
     <div class="form-group">
         <label for="title" class="form-label">Meeting Title</label>
-        <input placeholder="Meeting Title" type="text" name="title" id="title" class="form-control">
+        <input placeholder="Meeting Title" type="text" name="title" id="title" class="form-control" v-model="meetItem.title"> 
     </div>
     <div class="form-group">
         <label for="start" class="form-label">Meeting Start Time</label>
-        <input type="datetime-local" name="start" id="start" class="form-control">
+        <input type="datetime-local" name="start" id="start" class="form-control" v-model="meetItem.start" >
     </div>
     <div class="form-group">
         <label for="duration" class="form-label">Meeting Duration</label>
-        <input type="number" name="end" id="end" class="form-control" min="1" placeholder="Hours" max="9">
+        <input type="number" name="end" id="end" class="form-control" min="1" placeholder="Hours" max="9" v-model="meetItem.duration">
     </div>
     <hr>
     <div class="row form-group">
@@ -29,21 +29,33 @@ var today = new Date();
 export default {
     mounted() {
         console.log('Meeting Form Component mounted.')
-        console.log(today.toLocaleString())
     },
-    // data() {
-    //     return {
-    //         product: []
-    //     }
-    // },
+    data: function() {
+        return {
+            meetItem: {
+                title: '',
+                duration: '',
+                start: '',
+            }
+        }
+        
+    },
     methods: {
         addMeet() {
-            this.axios
-            .post('/meetings', this.product)
-            .catch(err => console.log(err))
+            // Check for errors
+            this.err = {}
+            // Actual posting information
+            console.log(this.meetItem)
+            axios
+            .post('/meetings', this.meetItem)
+            .then(response => {
+                alert('Meeting Added...')
+            })
+            .catch(err => {
+                console.log(err)
+            })
             .finally(()=> this.loading = false)
-        }
+        },
     }
 }
-// this.product = [{title: '', start: '', duration: 0}]
 </script>
