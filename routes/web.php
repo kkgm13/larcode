@@ -20,4 +20,4 @@ Route::get('/', function () {
 Route::get('/welcome', function(){
     return view('welcome');
 });
-Route::resource('meetings',MeetingController::class);
+Route::apiResource('meetings',MeetingController::class);

@@ -1889,10 +1889,7 @@ var today = new Date();
     addMeet: function addMeet() {
       var _this = this;
 
-      // Check for errors
-      this.err = {}; // Actual posting information
-
-      console.log(this.meetItem);
+      // Actual posting information
       axios.post('/meetings', this.meetItem).then(function (response) {
         alert('Meeting Added...');
       })["catch"](function (err) {

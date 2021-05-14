@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Meeting;
 use Illuminate\Http\Request;
 
@@ -37,11 +38,12 @@ class MeetingController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $validatedData = $this->validate($request, Meeting::validationRules(), Meeting::validationMessages());
-        // Theoretical Issue: Due to the implementation of duration, it is tricky to request it directly from request
-        // $meeting = Meeting::create($validatedD ata);        
-        return response()->json('The Meeting is added');
+        $test = Carbon::create(2020,1,1, 0); // Required to take the 00:00:00 clause since Carbon can't do this specifically
+        $validatedData['duration'] = $test->addHour($request['duration'])->toTimeString(); // Convert it to hours due to MySQL conversion 
+        // dd($validatedData['duration']);
+        $meeting = Meeting::create($validatedData);        
+        return response()->json('The Meeting is added!');
     }
 
     /**

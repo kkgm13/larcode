@@ -42,10 +42,7 @@ export default {
     },
     methods: {
         addMeet() {
-            // Check for errors
-            this.err = {}
             // Actual posting information
-            console.log(this.meetItem)
             axios
             .post('/meetings', this.meetItem)
             .then(response => {

@@ -19,7 +19,8 @@ class Meeting extends Model
     public static function validationRules(){
         return [
             'title' => 'required|string',
-            'start' => 'required|date|after_or_equal:tomorrow|unique',
+            'start' => 'required|date|after_or_equal:tomorrow',
+            'duration' => 'required|integer|numeric|min:1|max:9'
         ];
     }
 
@@ -29,7 +30,7 @@ class Meeting extends Model
             'start.required' => 'Please provide a starting date and time',
             'start.date'     => 'Please provide a date and time',
             'start.after_or_equal' => 'Please select a meeting date after :date',
-            'start.unique'   => 'Please reschdule this meeting due to meeting conflict',
+            // 'start.unique'   => 'Please reschdule this meeting due to meeting conflict',
         ];
     }
 
