@@ -40,6 +40,7 @@ class MeetingController extends Controller
     {
         $validatedData = $this->validate($request, Meeting::validationRules(), Meeting::validationMessages());
         $test = Carbon::create(2020,1,1, 0); // Required to take the 00:00:00 clause since Carbon can't do this specifically
+        // As the duration is taken as a number, from form input, the DB sees it as a 
         $validatedData['duration'] = $test->addHour($request['duration'])->toTimeString(); // Convert it to hours due to MySQL conversion 
         // dd($validatedData['duration']);
         $meeting = Meeting::create($validatedData);        
