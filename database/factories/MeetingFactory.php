@@ -22,13 +22,11 @@ class MeetingFactory extends Factory
      */
     public function definition()
     {
-        // $time = Carbon::setTime($this->faker->randomDigit(), 0, 0);
-        
+        $test = Carbon::create(2020,1,1, 0);
         return [
             'title' => $this->faker->words(3,true),
-            'start'=> $this->faker->dateTimeBetween('+1 month','+1 Year'),
-            // 'duration' => $time,
-            'duration' => $this->faker->randomDigit(),
+            'start'=> $this->faker->dateTimeBetween('-1 month','+1 Year'),
+            'duration' => $test->addHour($this->faker->randomDigit())->toTimeString(),
         ];
     }
 }

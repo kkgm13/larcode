@@ -16,7 +16,11 @@ class MeetingController extends Controller
     public function index()
     {
         //
-        return Meeting::all()->toArray();
+        $test = Meeting::all();
+        $test->sortBy('start')->fresh()->toArray();
+        return $test->sortBy('start')->fresh()->toJson();
+        // dd($test,$test2);
+        // return 
     }
 
     /**

@@ -1952,6 +1952,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
     console.log("Single Meeting mounted.");
@@ -1996,25 +1998,46 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     // Grab the initial Data
     return {
-      meetingList: [{
-        title: "Event 1",
-        start: new Date().toLocaleString(),
-        duration: 1
-      }, {
-        title: "Event 2",
-        start: new Date().toLocaleString(),
-        duration: 1
-      }, {
-        title: "Event 3",
-        start: new Date().toLocaleString(),
-        duration: 1
-      }, {
-        title: "Event Negative",
-        start: new Date().toLocaleString(),
-        duration: 1
-      }]
+      meetingList: [// {
+        //     title: "Event 1",
+        //     start: new Date().toLocaleString(),
+        //     duration: 1
+        // },
+        // {
+        //     title: "Event 2",
+        //     start: new Date().toLocaleString(),
+        //     duration: 1
+        // },
+        // {
+        //     title: "Event 3",
+        //     start: new Date().toLocaleString(),
+        //     duration: 1
+        // },
+        // {
+        //     title: "Event Negative",
+        //     start: new Date().toLocaleString(),
+        //     duration: 1
+        // },
+      ]
     };
-  }
+  },
+  created: function created() {
+    this.fetchMeetingList();
+  },
+  methods: {
+    fetchMeetingList: function fetchMeetingList() {
+      var _this = this;
+
+      axios.get('/meetings').then(function (result) {
+        // console.log(result)
+        _this.meetingList = result.data;
+      }); // .catch(err => {
+      //     console.log(err)
+      // })
+    }
+  } // ready: function(){
+  //     this.fetchMeetingList();
+
 });
 
 /***/ }),
@@ -38033,8 +38056,8 @@ var render = function() {
       _c("div", { staticClass: "col-md-8" }, [
         _c(
           "ul",
-          _vm._l(_vm.meetingList, function(meet, index) {
-            return _c("meet-item", { key: index, attrs: { meet: meet } })
+          _vm._l(_vm.meetingList, function(meet) {
+            return _c("meet-item", { key: meet.id, attrs: { meet: meet } })
           }),
           1
         )
