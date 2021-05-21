@@ -2,6 +2,35 @@
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
+## Pre-requisites
+* [Composer](https://getcomposer.org) that is vital to install Laravel & related dependencies
+* LAMP Stack Application like XAMPP or MAMP (Must handle MySQL)
+
+## Pre-setups
+``` bash
+# Install PHP dependencies
+composer install
+# Generate the Application Key for .env
+php artisan key:generate
+# Copy the example .env file for the system to reference of
+cp .env.example .env # Open .env and insert generated Application Key & MySQL Database configs
+# Install JS Dependencies
+npm install          
+```
+Create the Database via the Stack Application's MyPHPAdmin
+
+``` bash
+# Migrate the tables over to MySQL DB
+php artisan migrate:refresh --seed
+```
+## To run
+``` bash
+# Run Laravel Mix to compile the JS and CSS/SASS files
+npm run watch 
+# Run Laravel itself
+php artisan serve
+```
+---------------
 ## About Laravel
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
@@ -14,9 +43,6 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 - [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Code of Conduct
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
 ## License
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

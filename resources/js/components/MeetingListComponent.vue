@@ -10,57 +10,43 @@
     </div>
 </template> 
 <script>
+// Import the Single Meeting Component
 import meetItem from "./MeetingComponent"
+// Export the Vue Component
 export default {
-    mounted() { // Standard mounting
+    // Component Mounted to the Application
+    mounted() {
         console.log('Meeting List Component mounted.')
     },
+    // External VUE files that are used.  
     components: {
         meetItem
     },
-    data: function() { // Grab the initial Data
+    // Data to call/grab initial data
+    data: function() {
         return {
-            meetingList : [
-                // {
-                //     title: "Event 1",
-                //     start: new Date().toLocaleString(),
-                //     duration: 1
-                // },
-                // {
-                //     title: "Event 2",
-                //     start: new Date().toLocaleString(),
-                //     duration: 1
-                // },
-                // {
-                //     title: "Event 3",
-                //     start: new Date().toLocaleString(),
-                //     duration: 1
-                // },
-                // {
-                //     title: "Event Negative",
-                //     start: new Date().toLocaleString(),
-                //     duration: 1
-                // },
-            ],
-
+            meetingList : [],
         }
     },
+    // Initial actions when Vue Component Created 
     created() {
        this.fetchMeetingList()
     },
+    // Methods used in this Vue Component
     methods: {
+        /**
+         * Fetch the meetings available via Axios route caller.
+         * @todo Find a way to auto sync when list updates
+         */
         fetchMeetingList: function(){
             axios.get('/meetings')
             .then((result) => {
-                // console.log(result)
                 this.meetingList = result.data
             })
-            // .catch(err => {
-            //     console.log(err)
-            // })
+            .catch(err => {
+                console.log(err)
+            })
         }
     },
-    // ready: function(){
-    //     this.fetchMeetingList();
 }
 </script>

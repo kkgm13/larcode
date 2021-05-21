@@ -15,12 +15,9 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        //
         $test = Meeting::all();
         $test->sortBy('start')->fresh()->toArray();
         return $test->sortBy('start')->fresh()->toJson();
-        // dd($test,$test2);
-        // return 
     }
 
     /**
@@ -42,13 +39,23 @@ class MeetingController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $this->validate($request, Meeting::validationRules(), Meeting::validationMessages());
-        $test = Carbon::create(2020,1,1, 0); // Required to take the 00:00:00 clause since Carbon can't do this specifically
-        // As the duration is taken as a number, from form input, the DB sees it as a 
-        $validatedData['duration'] = $test->addHour($request['duration'])->toTimeString(); // Convert it to hours due to MySQL conversion 
-        // dd($validatedData['duration']);
-        $meeting = Meeting::create($validatedData);        
-        return response()->json('The Meeting is added!');
+        // Do Server Validation Checks
+        $validatedData = $this->validate($request, 
+        // Meeting::validationRules(), Meeting::validationMessages());
+        ['title' => 'required|string',
+        'start' => 'required|date|after_or_equal:tomorrow',
+        'duration' => 'required|numeric|min:1|max:9|between:1.0,9.0']);
+
+        // Insert the duration with the proper Time to use.
+        $validatedData['duration'] = gmdate('H:i:s', floor($request['duration'] * 3600));  // Convert it to hours due to MySQL conversion 
+        
+        // if (Meeting::conflict($validatedData)){
+        //     return response->json('The meeting cannot be saved. It is conflicted');
+        // } else {
+            // Save and return
+            $meeting = Meeting::create($validatedData);        
+            return response()->json('The Meeting is added!');
+        // }
     }
 
     /**
@@ -59,7 +66,7 @@ class MeetingController extends Controller
      */
     public function show(Meeting $meeting)
     {
-        //
+        return abort(404);
     }
 
     /**

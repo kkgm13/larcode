@@ -16,11 +16,26 @@ class Meeting extends Model
         'start'
     ];
 
+    /**
+     * Look at conflicting Meetings
+     */
+    public static function conflict($variable){
+        // For each meeting in the database
+        for ($i=0; $i < Meeting::all(); $i++) { 
+            dd($meet);
+            // If any the index's meet's start & duration MATCH of the incoming meeting's start and duration
+                // Reject Meeting
+            // Else 
+                // Allow to accept
+        }
+        return null;
+    }
+
     public static function validationRules(){
         return [
             'title' => 'required|string',
             'start' => 'required|date|after_or_equal:tomorrow',
-            'duration' => 'required|integer|numeric|min:1|max:9'
+            'duration' => 'required|integer|numeric|min:1|max:9|between:1.0,9.0'
         ];
     }
 

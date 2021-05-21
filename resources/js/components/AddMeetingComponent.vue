@@ -1,5 +1,5 @@
 <template>
-<form @submit.prevent="addMeet" >
+<form @submit="addMeet" >
     <div class="form-group">
         <label for="title" class="form-label">Meeting Title</label>
         <input placeholder="Meeting Title" type="text" name="title" id="title" class="form-control" v-model="meetItem.title"> 
@@ -9,8 +9,8 @@
         <input type="datetime-local" name="start" id="start" class="form-control" v-model="meetItem.start" >
     </div>
     <div class="form-group">
-        <label for="duration" class="form-label">Meeting Duration</label>
-        <input type="number" name="end" id="end" class="form-control" min="1" placeholder="Hours" max="9" v-model="meetItem.duration">
+        <label for="duration" class="form-label">Meeting Duration (Each 0.1 step is about 6 Minutes)</label>
+        <input type="number" name="end" id="end" class="form-control" min="1" placeholder="Hours" step="0.1" max="9" v-model="meetItem.duration">
     </div>
     <hr>
     <div class="row form-group">
@@ -47,11 +47,11 @@ export default {
             .post('/meetings', this.meetItem)
             .then(response => {
                 alert('Meeting Added...')
+                // this.fetchMeetingList()
             })
             .catch(err => {
                 console.log(err)
             })
-            .finally(()=> this.loading = false)
         },
     }
 }

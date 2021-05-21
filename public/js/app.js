@@ -1887,52 +1887,13 @@ var today = new Date();
   },
   methods: {
     addMeet: function addMeet() {
-      var _this = this;
-
       // Actual posting information
       axios.post('/meetings', this.meetItem).then(function (response) {
-        alert('Meeting Added...');
+        alert('Meeting Added...'); // this.fetchMeetingList()
       })["catch"](function (err) {
         console.log(err);
-      })["finally"](function () {
-        return _this.loading = false;
       });
     }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mounted: function mounted() {
-    console.log('Example Component mounted.');
   }
 });
 
@@ -1986,58 +1947,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+// Import the Single Meeting Component
+ // Export the Vue Component
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  // Component Mounted to the Application
   mounted: function mounted() {
-    // Standard mounting
     console.log('Meeting List Component mounted.');
   },
+  // External VUE files that are used.  
   components: {
     meetItem: _MeetingComponent__WEBPACK_IMPORTED_MODULE_0__.default
   },
+  // Data to call/grab initial data
   data: function data() {
-    // Grab the initial Data
     return {
-      meetingList: [// {
-        //     title: "Event 1",
-        //     start: new Date().toLocaleString(),
-        //     duration: 1
-        // },
-        // {
-        //     title: "Event 2",
-        //     start: new Date().toLocaleString(),
-        //     duration: 1
-        // },
-        // {
-        //     title: "Event 3",
-        //     start: new Date().toLocaleString(),
-        //     duration: 1
-        // },
-        // {
-        //     title: "Event Negative",
-        //     start: new Date().toLocaleString(),
-        //     duration: 1
-        // },
-      ]
+      meetingList: []
     };
   },
+  // Initial actions when Vue Component Created 
   created: function created() {
     this.fetchMeetingList();
   },
+  // Methods used in this Vue Component
   methods: {
+    /**
+     * Fetch the meetings available via Axios route caller.
+     * @todo Find a way to auto sync when list updates
+     */
     fetchMeetingList: function fetchMeetingList() {
       var _this = this;
 
       axios.get('/meetings').then(function (result) {
-        // console.log(result)
         _this.meetingList = result.data;
-      }); // .catch(err => {
-      //     console.log(err)
-      // })
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
-  } // ready: function(){
-  //     this.fetchMeetingList();
-
+  }
 });
 
 /***/ }),
@@ -2065,8 +2012,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js"
  */
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
 Vue.component('meeting-component', __webpack_require__(/*! ./components/MeetingListComponent.vue */ "./resources/js/components/MeetingListComponent.vue").default);
 Vue.component('addform-component', __webpack_require__(/*! ./components/AddMeetingComponent.vue */ "./resources/js/components/AddMeetingComponent.vue").default);
 /**
@@ -37547,45 +37494,6 @@ component.options.__file = "resources/js/components/AddMeetingComponent.vue"
 
 /***/ }),
 
-/***/ "./resources/js/components/ExampleComponent.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=template&id=299e239e& */ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&");
-/* harmony import */ var _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
-  _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__.render,
-  _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/ExampleComponent.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
 /***/ "./resources/js/components/MeetingComponent.vue":
 /*!******************************************************!*\
   !*** ./resources/js/components/MeetingComponent.vue ***!
@@ -37680,22 +37588,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ExampleComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
-
-/***/ }),
-
 /***/ "./resources/js/components/MeetingComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/MeetingComponent.vue?vue&type=script&lang=js& ***!
@@ -37741,23 +37633,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddMeetingComponent_vue_vue_type_template_id_6c4a6428___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddMeetingComponent_vue_vue_type_template_id_6c4a6428___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddMeetingComponent.vue?vue&type=template&id=6c4a6428& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/AddMeetingComponent.vue?vue&type=template&id=6c4a6428&");
-
-
-/***/ }),
-
-/***/ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ExampleComponent.vue?vue&type=template&id=299e239e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&");
 
 
 /***/ }),
@@ -37812,118 +37687,108 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.addMeet($event)
+  return _c("form", { on: { submit: _vm.addMeet } }, [
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { staticClass: "form-label", attrs: { for: "title" } }, [
+        _vm._v("Meeting Title")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.meetItem.title,
+            expression: "meetItem.title"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: {
+          placeholder: "Meeting Title",
+          type: "text",
+          name: "title",
+          id: "title"
+        },
+        domProps: { value: _vm.meetItem.title },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.meetItem, "title", $event.target.value)
+          }
         }
-      }
-    },
-    [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { staticClass: "form-label", attrs: { for: "title" } }, [
-          _vm._v("Meeting Title")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.meetItem.title,
-              expression: "meetItem.title"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            placeholder: "Meeting Title",
-            type: "text",
-            name: "title",
-            id: "title"
-          },
-          domProps: { value: _vm.meetItem.title },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.meetItem, "title", $event.target.value)
-            }
-          }
-        })
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { staticClass: "form-label", attrs: { for: "start" } }, [
+        _vm._v("Meeting Start Time")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { staticClass: "form-label", attrs: { for: "start" } }, [
-          _vm._v("Meeting Start Time")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.meetItem.start,
-              expression: "meetItem.start"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "datetime-local", name: "start", id: "start" },
-          domProps: { value: _vm.meetItem.start },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.meetItem, "start", $event.target.value)
-            }
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.meetItem.start,
+            expression: "meetItem.start"
           }
-        })
+        ],
+        staticClass: "form-control",
+        attrs: { type: "datetime-local", name: "start", id: "start" },
+        domProps: { value: _vm.meetItem.start },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.meetItem, "start", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { staticClass: "form-label", attrs: { for: "duration" } }, [
+        _vm._v("Meeting Duration (Each 0.1 step is about 6 Minutes)")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { staticClass: "form-label", attrs: { for: "duration" } }, [
-          _vm._v("Meeting Duration")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.meetItem.duration,
-              expression: "meetItem.duration"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            type: "number",
-            name: "end",
-            id: "end",
-            min: "1",
-            placeholder: "Hours",
-            max: "9"
-          },
-          domProps: { value: _vm.meetItem.duration },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.meetItem, "duration", $event.target.value)
-            }
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.meetItem.duration,
+            expression: "meetItem.duration"
           }
-        })
-      ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _vm._m(0)
-    ]
-  )
+        ],
+        staticClass: "form-control",
+        attrs: {
+          type: "number",
+          name: "end",
+          id: "end",
+          min: "1",
+          placeholder: "Hours",
+          step: "0.1",
+          max: "9"
+        },
+        domProps: { value: _vm.meetItem.duration },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.meetItem, "duration", $event.target.value)
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -37943,54 +37808,6 @@ var staticRenderFns = [
           staticClass: "btn btn-danger btn-block",
           attrs: { type: "reset", value: "Reset" }
         })
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
-  \****************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
       ])
     ])
   }
