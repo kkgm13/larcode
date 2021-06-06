@@ -1913,8 +1913,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
     console.log("Single Meeting mounted.");
@@ -37751,7 +37749,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c("label", { staticClass: "form-label", attrs: { for: "duration" } }, [
-        _vm._v("Meeting Duration (Each 0.1 step is about 6 Minutes)")
+        _vm._v("Meeting Duration (Minutes)")
       ]),
       _vm._v(" "),
       _c("input", {
@@ -37769,9 +37767,7 @@ var render = function() {
           name: "end",
           id: "end",
           min: "1",
-          placeholder: "Hours",
-          step: "0.1",
-          max: "9"
+          placeholder: "Minutes"
         },
         domProps: { value: _vm.meetItem.duration },
         on: {
@@ -37841,7 +37837,7 @@ var render = function() {
         _vm._s(_vm.meet.start) +
         " (" +
         _vm._s(_vm.meet.duration) +
-        " hour)"
+        ")"
     )
   ])
 }

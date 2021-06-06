@@ -1,7 +1,5 @@
 <template>
-<!-- <ul> -->
-    <li>{{ meet.title }} - {{meet.start}} ({{meet.duration}} hour)</li>
-<!-- </ul> -->
+<li>{{ meet.title }} - {{meet.start}} ({{meet.duration}})</li>
 </template>
 <script>
 export default {

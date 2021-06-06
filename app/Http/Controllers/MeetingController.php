@@ -44,10 +44,11 @@ class MeetingController extends Controller
         // Meeting::validationRules(), Meeting::validationMessages());
         ['title' => 'required|string',
         'start' => 'required|date|after_or_equal:tomorrow',
-        'duration' => 'required|numeric|min:1|max:9|between:1.0,9.0']);
+        'duration' => 'required|numeric|min:1']);
 
         // Insert the duration with the proper Time to use.
-        $validatedData['duration'] = gmdate('H:i:s', floor($request['duration'] * 3600));  // Convert it to hours due to MySQL conversion 
+        $validatedData['duration'] = gmdate('H:i:s', floor($request['duration'] * 60));  // Convert it to hours due to MySQL conversion 
+        $start = Carbon::parse($validatedData['duration']);
         
         // if (Meeting::conflict($validatedData)){
         //     return response->json('The meeting cannot be saved. It is conflicted');

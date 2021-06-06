@@ -9,8 +9,8 @@
         <input type="datetime-local" name="start" id="start" class="form-control" v-model="meetItem.start" >
     </div>
     <div class="form-group">
-        <label for="duration" class="form-label">Meeting Duration (Each 0.1 step is about 6 Minutes)</label>
-        <input type="number" name="end" id="end" class="form-control" min="1" placeholder="Hours" step="0.1" max="9" v-model="meetItem.duration">
+        <label for="duration" class="form-label">Meeting Duration (Minutes)</label>
+        <input type="number" name="end" id="end" class="form-control" min="1" placeholder="Minutes" v-model="meetItem.duration">
     </div>
     <hr>
     <div class="row form-group">
