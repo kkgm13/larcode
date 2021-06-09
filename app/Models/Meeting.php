@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,12 +23,14 @@ class Meeting extends Model
     public static function conflict($variable){
         // For each meeting in the database
         for ($i=0; $i < Meeting::all(); $i++) { 
-            dd($meet);
-            // If any the index's meet's start & duration MATCH of the incoming meeting's start and duration
-                // Reject Meeting
-            // Else 
-                // Allow to accept
+            $carbonDate=Carbon::parse($i->start);
+            // If the current meeting's start date time and end time is between the intended variable start date time and duration
+            if(Carbon::parse($variable->start)->between($carbonDate, $carbonDate->addMinutes($i->duration))){
+                // Declare a Meeting Conflict
+                return "Error: Meeting Conflict with ".$i->title.".\nPlease change this meeting.";
+            }
         }
+        // No conflict found between all dates
         return null;
     }
 

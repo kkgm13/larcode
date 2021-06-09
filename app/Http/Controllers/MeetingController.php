@@ -16,8 +16,7 @@ class MeetingController extends Controller
     public function index()
     {
         $test = Meeting::all();
-        $test->sortBy('start')->fresh()->toArray();
-        return $test->sortBy('start')->fresh()->toJson();
+        return $test->sortBy('start')->toJson();
     }
 
     /**
@@ -46,17 +45,14 @@ class MeetingController extends Controller
         'start' => 'required|date|after_or_equal:tomorrow',
         'duration' => 'required|numeric|min:1']);
 
-        // Insert the duration with the proper Time to use.
-        $validatedData['duration'] = gmdate('H:i:s', floor($request['duration'] * 60));  // Convert it to hours due to MySQL conversion 
-        $start = Carbon::parse($validatedData['duration']);
-        
-        // if (Meeting::conflict($validatedData)){
-        //     return response->json('The meeting cannot be saved. It is conflicted');
-        // } else {
+        // Insert the duration with the proper Time to use.        
+        if (is_null(Meeting::conflict($start))){
+            return response()->json('The meeting cannot be saved. It is conflicted');
+        } else {
             // Save and return
-            $meeting = Meeting::create($validatedData);        
+            $meeting = Meeting::create($validatedData);  
             return response()->json('The Meeting is added!');
-        // }
+        }
     }
 
     /**

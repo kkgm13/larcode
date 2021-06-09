@@ -37835,7 +37835,7 @@ var render = function() {
       _vm._s(_vm.meet.title) +
         " - " +
         _vm._s(_vm.meet.start) +
-        " (" +
+        " (Duration: " +
         _vm._s(_vm.meet.duration) +
         ")"
     )
