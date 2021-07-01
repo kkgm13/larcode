@@ -45,8 +45,11 @@ class MeetingController extends Controller
         'start' => 'required|date|after_or_equal:tomorrow',
         'duration' => 'required|numeric|min:1']);
 
+        dd(Meeting::conflict($validatedData));
+
         // Insert the duration with the proper Time to use.        
-        if (is_null(Meeting::conflict($start))){
+        if (is_null()){
+            dd(response());
             return response()->json('The meeting cannot be saved. It is conflicted');
         } else {
             // Save and return

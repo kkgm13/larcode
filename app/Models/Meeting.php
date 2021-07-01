@@ -27,9 +27,10 @@ class Meeting extends Model
             // If the current meeting's start date time and end time is between the intended variable start date time and duration
             if(Carbon::parse($variable->start)->between($carbonDate, $carbonDate->addMinutes($i->duration))){
                 // Declare a Meeting Conflict
-                return "Error: Meeting Conflict with ".$i->title.".\nPlease change this meeting.";
+                dd("Error: Meeting Conflict with ".$i->title.".\nPlease change this meeting.");
             }
         }
+        dd("Hit");
         // No conflict found between all dates
         return null;
     }
