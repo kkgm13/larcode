@@ -8,7 +8,8 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
-        "test": "jest"
+        "test": "jest",
+        "test-watch": "jest --watch"
     },
     "devDependencies": {
         "@vue/test-utils": "^1.2.1",

@@ -30,8 +30,6 @@ class Meeting extends Model
                 return "Error: Meeting Conflict with ".$i->title.".\nPlease change this meeting.";
             }
         }
-        // No conflict found between all dates
-        return null;
     }
 
     public static function validationRules(){

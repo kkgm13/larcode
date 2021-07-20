@@ -16,7 +16,7 @@ module.exports = {
     "moduleNameMapper": {
         "^@/(.*)$": "<rootDir>/resources/js/$1"
     },
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom" //Absolutely required as Jest v27 has this set to a differnet value
     // "setupFilesAfterEnv": [
     //     "<rootDir>/tests/Vue/setup.js"
     // ],

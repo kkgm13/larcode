@@ -10,7 +10,7 @@
     </div>
     <div class="form-group">
         <label for="duration" class="form-label">Meeting Duration (Minutes)</label>
-        <input type="number" name="end" id="end" class="form-control" min="1" placeholder="Minutes" v-model="meetItem.duration">
+        <input type="number" name="duration" id="duration" class="form-control" min="1" placeholder="Minutes" v-model="meetItem.duration">
     </div>
     <hr>
     <div class="row form-group">
@@ -25,7 +25,6 @@
   
 </template>
 <script>
-var today = new Date();
 export default {
     mounted() {
         console.log('Meeting Form Component mounted.')
