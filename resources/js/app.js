@@ -22,6 +22,7 @@ window.Vue = require('vue').default;
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('meeting-component', require('./components/MeetingListComponent.vue').default);
 Vue.component('addform-component', require('./components/AddMeetingComponent.vue').default);
+Vue.component('counter', require('/component/Counter.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
