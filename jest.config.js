@@ -16,6 +16,7 @@ module.exports = {
     "moduleNameMapper": {
         "^@/(.*)$": "<rootDir>/resources/js/$1"
     },
+    "testEnvironment": "jsdom"
     // "setupFilesAfterEnv": [
     //     "<rootDir>/tests/Vue/setup.js"
     // ],
