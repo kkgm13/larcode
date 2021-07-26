@@ -1,8 +1,12 @@
 <template>
-<form @submit="addMeet" >
+<form @submit="addMeet">
     <div class="form-group">
         <label for="title" class="form-label">Meeting Title</label>
         <input placeholder="Meeting Title" type="text" name="title" id="title" class="form-control" v-model="meetItem.title"> 
+    </div>
+     <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="isRepeat" name="isRepeat">
+        <label class="form-check-label" for="isRepeat">Repeating meeting?</label>
     </div>
     <div class="form-group">
         <label for="start" class="form-label">Meeting Start Time</label>
@@ -10,7 +14,11 @@
     </div>
     <div class="form-group">
         <label for="duration" class="form-label">Meeting Duration (Minutes)</label>
-        <input type="number" name="end" id="end" class="form-control" min="1" placeholder="Minutes" v-model="meetItem.duration">
+        <input type="number" name="duration" id="duration" class="form-control" min="1" placeholder="Minutes" v-model="meetItem.duration">
+    </div>
+    <div class="form-group">
+        <label for="repeatDur" class="form-label">Repeating Duration (Days)</label>
+        <input type="number" name="repeatDur" id="repeatDur" class="form-control" min="1" placeholder="Days" v-model="meetItem.repeatduration">
     </div>
     <hr>
     <div class="row form-group">
@@ -22,10 +30,8 @@
         </div>
     </div>
 </form>
-  
 </template>
 <script>
-var today = new Date();
 export default {
     mounted() {
         console.log('Meeting Form Component mounted.')
@@ -36,6 +42,7 @@ export default {
                 title: '',
                 duration: '',
                 start: '',
+                repeatDur: '',
             }
         }
         
