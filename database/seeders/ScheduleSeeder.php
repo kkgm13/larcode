@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class MeetingSeeder extends Seeder
+class ScheduleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,9 +13,9 @@ class MeetingSeeder extends Seeder
      */
     public function run()
     {
-        Meeting::factory()
-            ->count(10)
+        Schedule::factory()
+            ->create(5)
             ->meeting(1)
-            ->create(); 
+            ->create();
     }
 }

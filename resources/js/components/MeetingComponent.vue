@@ -1,5 +1,5 @@
 <template>
-<li>{{ meet.title }} - {{meet.start}} (Duration: {{meet.duration}})</li>
+<li>{{ meet.title }} - {{meet.schedule.start}} (Duration: {{meet.schedule.duration}}) {{meet.schedule.isRepeat ? 'Repeating every '+meet.schedule.repDays+' day(s)' : ''}}</li>
 </template>
 <script>
 export default {

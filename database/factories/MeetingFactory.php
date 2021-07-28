@@ -24,9 +24,6 @@ class MeetingFactory extends Factory
     {
         return [
             'title' => $this->faker->words(3,true),
-            'start'=> $this->faker->dateTimeBetween('-1 month','+1 Year'),
-            // Allow The duration to use the Time format
-            'duration' => gmdate('H:i:s', floor($this->faker->randomDigit() * 3600)),
         ];
     }
 }

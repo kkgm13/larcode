@@ -15,8 +15,8 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        $test = Meeting::all();
-        return $test->sortBy('start')->toJson();
+        $test = Meeting::with('schedule')->get();
+        return $test->toJson();
     }
 
     /**
@@ -41,21 +41,27 @@ class MeetingController extends Controller
         // Do Server Validation Checks
         $validatedData = $this->validate($request, 
         // Meeting::validationRules(), Meeting::validationMessages());
-        ['title' => 'required|string',
-        'start' => 'required|date|after_or_equal:tomorrow',
-        'duration' => 'required|numeric|min:1']);
+        [
+            'title' => 'required|string',
+        // 'schedule.start' => 'required|date|after_or_equal:tomorrow',
+        // 'schedule.duration' => 'required|numeric|min:1'
+        ]);
 
-        dd(Meeting::conflict($validatedData));
+        // dd();
 
         // Insert the duration with the proper Time to use.        
-        if (is_null()){
-            dd(response());
-            return response()->json('The meeting cannot be saved. It is conflicted');
-        } else {
+        // if (Meeting::conflict($validatedData)){
+        //     dd(response());
+        //     return response()->json('The meeting cannot be saved. It is conflicted');
+        // } else {
             // Save and return
-            $meeting = Meeting::create($validatedData);  
+            // $meeting = Meeting::create($validatedData);  
+            $meeting = new Meeting();
+            $meeting->title = $validatedData['title'];
+            $meeting->save();
+            (new ScheduleController).store($request);
             return response()->json('The Meeting is added!');
-        }
+        // }
     }
 
     /**

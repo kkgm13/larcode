@@ -23,16 +23,19 @@ class Meeting extends Model
     public static function conflict($variable){
         // For each meeting in the database
         for ($i=0; $i < Meeting::all(); $i++) { 
-            $carbonDate=Carbon::parse($i->start);
+            $carbonDate=Carbon::parse($i->schedule->start);
             // If the current meeting's start date time and end time is between the intended variable start date time and duration
-            if(Carbon::parse($variable->start)->between($carbonDate, $carbonDate->addMinutes($i->duration))){
+            if(Carbon::parse($variable->schedule->start)->between($carbonDate, $carbonDate->addMinutes($i->schedule->duration))){
                 // Declare a Meeting Conflict
                 dd("Error: Meeting Conflict with ".$i->title.".\nPlease change this meeting.");
             }
         }
         dd("Hit");
         // No conflict found between all dates
-        return null;
+    }
+
+    public function schedule(){
+        return $this->hasOne(Schedule::class, 'meetId', 'id');
     }
 
     public static function validationRules(){

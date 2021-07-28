@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Meeting;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MeetingController;
 
@@ -21,3 +22,8 @@ Route::get('/welcome', function(){
     return view('welcome');
 });
 Route::apiResource('meetings',MeetingController::class);
+
+Route::get('/test', function(){
+    $test = Meeting::with('schedule')->get();
+    dd($test->toJson());
+});

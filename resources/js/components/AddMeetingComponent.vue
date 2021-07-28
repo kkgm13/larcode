@@ -2,23 +2,23 @@
 <form @submit="addMeet">
     <div class="form-group">
         <label for="title" class="form-label">Meeting Title</label>
-        <input placeholder="Meeting Title" type="text" name="title" id="title" class="form-control" v-model="meetItem.title"> 
+        <input placeholder="Meeting Title" type="text" name="title" id="title" class="form-control" required v-model="meetItem.title"> 
     </div>
      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="isRepeat" name="isRepeat">
+        <input type="checkbox" class="form-check-input" id="isRepeat" name="isRepeat" v-on:click="meetItem.schedule.isRepeat = !meetItem.schedule.isRepeat">
         <label class="form-check-label" for="isRepeat">Repeating meeting?</label>
     </div>
     <div class="form-group">
         <label for="start" class="form-label">Meeting Start Time</label>
-        <input type="datetime-local" name="start" id="start" class="form-control" v-model="meetItem.start" >
+        <input type="datetime-local" name="start" id="start" class="form-control" required v-model="meetItem.schedule.start" >
     </div>
     <div class="form-group">
         <label for="duration" class="form-label">Meeting Duration (Minutes)</label>
-        <input type="number" name="duration" id="duration" class="form-control" min="1" placeholder="Minutes" v-model="meetItem.duration">
+        <input type="number" name="duration" id="duration" class="form-control" required min="1" placeholder="Minutes" v-model="meetItem.schedule.duration">
     </div>
-    <div class="form-group">
-        <label for="repeatDur" class="form-label">Repeating Duration (Days)</label>
-        <input type="number" name="repeatDur" id="repeatDur" class="form-control" min="1" placeholder="Days" v-model="meetItem.repeatduration">
+    <div v-if="meetItem.schedule.isRepeat" class="form-group">
+        <label for="repDays" class="form-label">Repeating Duration (Days)</label>
+        <input type="number" name="repDays" id="repDays" class="form-control" min="1" placeholder="Days" v-model="meetItem.schedule.repDays">
     </div>
     <hr>
     <div class="row form-group">
@@ -40,9 +40,12 @@ export default {
         return {
             meetItem: {
                 title: '',
-                duration: '',
-                start: '',
-                repeatDur: '',
+                schedule: {
+                    isRepeat: false,
+                    start: '',
+                    duration: '',
+                    repDays: '',
+                }
             }
         }
         

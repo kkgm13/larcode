@@ -1886,9 +1886,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       meetItem: {
         title: '',
-        duration: '',
-        start: '',
-        repeatDur: ''
+        schedule: {
+          isRepeat: false,
+          start: '',
+          duration: '',
+          repDays: ''
+        }
       }
     };
   },
@@ -37712,7 +37715,8 @@ var render = function() {
           placeholder: "Meeting Title",
           type: "text",
           name: "title",
-          id: "title"
+          id: "title",
+          required: ""
         },
         domProps: { value: _vm.meetItem.title },
         on: {
@@ -37726,7 +37730,23 @@ var render = function() {
       })
     ]),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "mb-3 form-check" }, [
+      _c("input", {
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", id: "isRepeat", name: "isRepeat" },
+        on: {
+          click: function($event) {
+            _vm.meetItem.schedule.isRepeat = !_vm.meetItem.schedule.isRepeat
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        { staticClass: "form-check-label", attrs: { for: "isRepeat" } },
+        [_vm._v("Repeating meeting?")]
+      )
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c("label", { staticClass: "form-label", attrs: { for: "start" } }, [
@@ -37738,19 +37758,24 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.meetItem.start,
-            expression: "meetItem.start"
+            value: _vm.meetItem.schedule.start,
+            expression: "meetItem.schedule.start"
           }
         ],
         staticClass: "form-control",
-        attrs: { type: "datetime-local", name: "start", id: "start" },
-        domProps: { value: _vm.meetItem.start },
+        attrs: {
+          type: "datetime-local",
+          name: "start",
+          id: "start",
+          required: ""
+        },
+        domProps: { value: _vm.meetItem.schedule.start },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.$set(_vm.meetItem, "start", $event.target.value)
+            _vm.$set(_vm.meetItem.schedule, "start", $event.target.value)
           }
         }
       })
@@ -37766,8 +37791,8 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.meetItem.duration,
-            expression: "meetItem.duration"
+            value: _vm.meetItem.schedule.duration,
+            expression: "meetItem.schedule.duration"
           }
         ],
         staticClass: "form-control",
@@ -37775,78 +37800,66 @@ var render = function() {
           type: "number",
           name: "duration",
           id: "duration",
+          required: "",
           min: "1",
           placeholder: "Minutes"
         },
-        domProps: { value: _vm.meetItem.duration },
+        domProps: { value: _vm.meetItem.schedule.duration },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.$set(_vm.meetItem, "duration", $event.target.value)
+            _vm.$set(_vm.meetItem.schedule, "duration", $event.target.value)
           }
         }
       })
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "form-group" }, [
-      _c("label", { staticClass: "form-label", attrs: { for: "repeatDur" } }, [
-        _vm._v("Repeating Duration (Days)")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.meetItem.repeatduration,
-            expression: "meetItem.repeatduration"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: {
-          type: "number",
-          name: "repeatDur",
-          id: "repeatDur",
-          min: "1",
-          placeholder: "Days"
-        },
-        domProps: { value: _vm.meetItem.repeatduration },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+    _vm.meetItem.schedule.isRepeat
+      ? _c("div", { staticClass: "form-group" }, [
+          _c(
+            "label",
+            { staticClass: "form-label", attrs: { for: "repDays" } },
+            [_vm._v("Repeating Duration (Days)")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.meetItem.schedule.repDays,
+                expression: "meetItem.schedule.repDays"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "number",
+              name: "repDays",
+              id: "repDays",
+              min: "1",
+              placeholder: "Days"
+            },
+            domProps: { value: _vm.meetItem.schedule.repDays },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.meetItem.schedule, "repDays", $event.target.value)
+              }
             }
-            _vm.$set(_vm.meetItem, "repeatduration", $event.target.value)
-          }
-        }
-      })
-    ]),
+          })
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c("hr"),
     _vm._v(" "),
-    _vm._m(1)
+    _vm._m(0)
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mb-3 form-check" }, [
-      _c("input", {
-        staticClass: "form-check-input",
-        attrs: { type: "checkbox", id: "isRepeat", name: "isRepeat" }
-      }),
-      _vm._v(" "),
-      _c(
-        "label",
-        { staticClass: "form-check-label", attrs: { for: "isRepeat" } },
-        [_vm._v("Repeating meeting?")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -37894,10 +37907,15 @@ var render = function() {
     _vm._v(
       _vm._s(_vm.meet.title) +
         " - " +
-        _vm._s(_vm.meet.start) +
+        _vm._s(_vm.meet.schedule.start) +
         " (Duration: " +
-        _vm._s(_vm.meet.duration) +
-        ")"
+        _vm._s(_vm.meet.schedule.duration) +
+        ") " +
+        _vm._s(
+          _vm.meet.schedule.isRepeat
+            ? "Repeating every " + _vm.meet.schedule.repDays + " day(s)"
+            : ""
+        )
     )
   ])
 }
