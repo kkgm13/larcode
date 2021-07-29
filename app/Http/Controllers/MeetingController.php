@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\Meeting;
 use Illuminate\Http\Request;
 
@@ -43,25 +42,29 @@ class MeetingController extends Controller
         // Meeting::validationRules(), Meeting::validationMessages());
         [
             'title' => 'required|string',
-        // 'schedule.start' => 'required|date|after_or_equal:tomorrow',
-        // 'schedule.duration' => 'required|numeric|min:1'
+            'schedule.isRepeat' => 'required|boolean',
+            'schedule.start' => 'required|date|after_or_equal:tomorrow',
+            'schedule.duration' => 'required|numeric|min:1',
+            'schedule.repDays' => 'nullable|numeric'
         ]);
 
-        // dd();
+        $test = Meeting::conflict($validatedData);
 
         // Insert the duration with the proper Time to use.        
-        // if (Meeting::conflict($validatedData)){
+        if(!is_null($test)){
         //     dd(response());
-        //     return response()->json('The meeting cannot be saved. It is conflicted');
-        // } else {
+            return response()->json(
+                ['err' => $test]
+            );
+        } else {
             // Save and return
             // $meeting = Meeting::create($validatedData);  
             $meeting = new Meeting();
             $meeting->title = $validatedData['title'];
             $meeting->save();
-            (new ScheduleController).store($request);
-            return response()->json('The Meeting is added!');
-        // }
+            (new ScheduleController)->store($request);
+            return response()->json();
+        }
     }
 
     /**

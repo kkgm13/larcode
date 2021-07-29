@@ -24,6 +24,5 @@ Route::get('/welcome', function(){
 Route::apiResource('meetings',MeetingController::class);
 
 Route::get('/test', function(){
-    $test = Meeting::with('schedule')->get();
-    dd($test->toJson());
+    return Meeting::with('schedule')->get();
 });

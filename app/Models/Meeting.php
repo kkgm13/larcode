@@ -21,17 +21,21 @@ class Meeting extends Model
      * Look at conflicting Meetings
      */
     public static function conflict($variable){
+        $meetDate = Carbon::parse($variable['schedule']['start']);
         // For each meeting in the database
-        for ($i=0; $i < Meeting::all(); $i++) { 
+        foreach(Meeting::with('schedule')->get() as $i){ 
             $carbonDate=Carbon::parse($i->schedule->start);
+            // Convert Duration to Seconds to add
+            $str_time = $i->schedule->duration;
+            sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
+            $time_seconds = isset($seconds) ? $hours * 3600 + $minutes * 60 + $seconds : $hours * 60 + $minutes;
             // If the current meeting's start date time and end time is between the intended variable start date time and duration
-            if(Carbon::parse($variable->schedule->start)->between($carbonDate, $carbonDate->addMinutes($i->schedule->duration))){
+            $checker = $meetDate->between($carbonDate,Carbon::parse($i->schedule->start)->addSeconds($time_seconds));
+            if($checker){
                 // Declare a Meeting Conflict
-                dd("Error: Meeting Conflict with ".$i->title.".\nPlease change this meeting.");
+                return "Error: Meeting Conflict Detected with ".$i->title." when creating meeting.\nPlease Retry the meeting.";
             }
         }
-        dd("Hit");
-        // No conflict found between all dates
     }
 
     public function schedule(){

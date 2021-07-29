@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Meeting;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 
@@ -35,18 +37,20 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        $meeting = Meeting::where('title', $request)->get();
-        $schedule = new Schedule();
-        $schdeule->meetId = $meeting->id;
-        $schdeule->start = $request->schedule->start;
-        $schdeule->duration = $request->schedule->duration;
-        if($request->schedule->isRepeat == true){
-            $schdeule->isRepeat = true;
-            $schdeule->repDays = $request->schedule->repDays;
+        $test = $request->schedule;
+        $meeting = Meeting::where('title', $request->title)->first();
+        $sched = new Schedule();
+        $sched->meetId = $meeting->id;
+        $sched->start = $request->schedule['start'];
+        $duration = Carbon::now()->startOfDay();
+        $sched->duration = $duration->addMinutes($request->schedule['duration'])->toTimeString();
+        if($request->schedule['isRepeat'] == true){
+            $sched->isRepeat = true;
+            $sched->repDays = $request->schedule['repDays'];
         } else {
-            $schdeule->isRepeat = false;
+            $sched->isRepeat = false;
         }
-        $schedule->save();
+        $sched->save();
     }
 
     /**
