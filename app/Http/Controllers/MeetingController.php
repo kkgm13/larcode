@@ -42,17 +42,16 @@ class MeetingController extends Controller
         // Meeting::validationRules(), Meeting::validationMessages());
         [
             'title' => 'required|string',
-            'schedule.isRepeat' => 'required|boolean',
+            'schedule.isRepeat' => 'boolean',
             'schedule.start' => 'required|date|after_or_equal:tomorrow',
             'schedule.duration' => 'required|numeric|min:1',
-            'schedule.repDays' => 'nullable|numeric'
+            'schedule.repDays' => 'nullable|required_if:schedule.isRepeat,true|numeric'
         ]);
 
         $test = Meeting::conflict($validatedData);
 
         // Insert the duration with the proper Time to use.        
         if(!is_null($test)){
-        //     dd(response());
             return response()->json(
                 ['err' => $test]
             );
