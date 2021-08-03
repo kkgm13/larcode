@@ -2026,7 +2026,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js"
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 Vue.component('meeting-component', __webpack_require__(/*! ./components/MeetingListComponent.vue */ "./resources/js/components/MeetingListComponent.vue").default);
-Vue.component('addform-component', __webpack_require__(/*! ./components/AddMeetingComponent.vue */ "./resources/js/components/AddMeetingComponent.vue").default);
+Vue.component('addform-component', __webpack_require__(/*! ./components/AddMeetingComponent.vue */ "./resources/js/components/AddMeetingComponent.vue").default); // Vue.component('counter', require('/component/Counter.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
