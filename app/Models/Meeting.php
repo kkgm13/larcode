@@ -24,16 +24,16 @@ class Meeting extends Model
         if($variable['schedule']['isRepeat'] == true){
             $test = self::singleConflict($variable);
             if(is_null($test)){
-                return self::multiConflict($variable) . "\nPlease Retry the meeting.";
+                return self::multiConflict($variable);
             } else {
                 if(!is_null(self::multiConflict($variable))){
-                    return $test . " Meeting also contains multiple conflicts on other meetings...\nPlease Retry the meeting.";
+                    return $test . " Meeting also contains multiple conflicts on other meetings...";
                 } else {
-                    return $test. "\nPlease Retry the meeting.";
+                    return $test;
                 }
             }
         } else {
-            return self::singleConflict($variable) . "\nPlease Retry the meeting.";
+            return self::singleConflict($variable);
         }
     }
 
@@ -43,20 +43,22 @@ class Meeting extends Model
      */
     private static function multiConflict($variable){
         $meetDate = Carbon::parse($variable['schedule']['start']);
-        foreach(Meeting::with('schedule')->get() as $i){
-            $mainMeet = $meetDate;
-            if($i->schedule->isRepeat == true){
-                // Convert Duration to Seconds to add
-                $str_time = $i->schedule->duration;
-                sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
-                $time_seconds = isset($seconds) ? $hours * 3600 + $minutes * 60 + $seconds : $hours * 60 + $minutes;
-                for($j = 0; $j < $variable['schedule']['repDays']; $j++){
-                    $meet = $mainMeet->addDays(($variable['schedule']['repDays'] * $j));
-                    $meetDBStart = Carbon::parse($i->schedule->start)->addDays(($i->schedule->repDays * $j));
-                    $meetDBend = Carbon::parse($i->schedule->start)->addDays(($i->schedule->repDays * $j))->addSeconds($time_seconds);
-                    $checker = $meet->between($meetDBStart,$meetDBend);
-                    if($checker){
-                        return "Error: Meeting Conflict Detected with known meeting on ".$i."th week when creating the meeting.";
+        if(!empty(Meeting::with('schedule')->get())){
+            foreach(Meeting::with('schedule')->get() as $i){
+                $mainMeet = $meetDate;
+                if($i->schedule->isRepeat == true){
+                    // Convert Duration to Seconds to add
+                    $str_time = $i->schedule->duration;
+                    sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
+                    $time_seconds = isset($seconds) ? $hours * 3600 + $minutes * 60 + $seconds : $hours * 60 + $minutes;
+                    for($j = 0; $j < $variable['schedule']['repDays']; $j++){
+                        $meet = $mainMeet->addDays(($variable['schedule']['repDays'] * $j));
+                        $meetDBStart = Carbon::parse($i->schedule->start)->addDays(($i->schedule->repDays * $j));
+                        $meetDBend = Carbon::parse($i->schedule->start)->addDays(($i->schedule->repDays * $j))->addSeconds($time_seconds);
+                        $checker = $meet->between($meetDBStart,$meetDBend);
+                        if($checker){
+                            return "Error: Meeting Conflict Detected with known meeting on ".$i."th week when creating the meeting.";
+                        }
                     }
                 }
             }
@@ -70,17 +72,19 @@ class Meeting extends Model
     private static function singleConflict($variable){
         $meetDate = Carbon::parse($variable['schedule']['start']);
         // For each meeting in the database
-        foreach(Meeting::with('schedule')->get() as $i){ 
-            $carbonDate=Carbon::parse($i->schedule->start);
-            // Convert Duration to Seconds to add
-            $str_time = $i->schedule->duration;
-            sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
-            $time_seconds = isset($seconds) ? $hours * 3600 + $minutes * 60 + $seconds : $hours * 60 + $minutes;
-            // If the current meeting's start date time and end time is between the intended variable start date time and duration
-            $checker = $meetDate->between($carbonDate,Carbon::parse($i->schedule->start)->addSeconds($time_seconds));
-            if($checker){
-                // Declare a Meeting Conflict
-                return "Error: Meeting Conflict Detected with meeting: ".$i->title.", when creating this meeting.";
+        if(!empty(Meeting::with('schedule')->get())){
+            foreach(Meeting::with('schedule')->get() as $i){
+                $carbonDate=Carbon::parse($i->schedule->start);
+                // Convert Duration to Seconds to add
+                $str_time = $i->schedule->duration;
+                sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
+                $time_seconds = isset($seconds) ? $hours * 3600 + $minutes * 60 + $seconds : $hours * 60 + $minutes;
+                // If the current meeting's start date time and end time is between the intended variable start date time and duration
+                $checker = $meetDate->between($carbonDate,Carbon::parse($i->schedule->start)->addSeconds($time_seconds));
+                if($checker){
+                    // Declare a Meeting Conflict
+                    return "Error: Meeting Conflict Detected with meeting: ".$i->title.", when creating this meeting.";
+                }
             }
         }
     }

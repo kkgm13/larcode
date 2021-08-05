@@ -58,8 +58,12 @@ export default {
             .then(response => {
                 if(response.err != ""){
                     alert(response.data.err)
+                    console.log(response)
+                    console.log(response.err)
                 } else {
                     alert('Meeting Added...')
+                    console.log(response)
+                    console.log(response.err)
                 }
             });
         },

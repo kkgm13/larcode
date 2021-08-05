@@ -37,7 +37,7 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        $test = $request->schedule;
+        // $test = $request->schedule;
         $meeting = Meeting::where('title', $request->title)->first();
         $sched = new Schedule();
         $sched->meetId = $meeting->id;
