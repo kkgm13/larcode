@@ -22,7 +22,6 @@ Route::get('/welcome', function(){
     return view('welcome');
 });
 Route::apiResource('meetings',MeetingController::class);
-
 Route::get('/test', function(){
     return Meeting::with('schedule')->get();
 });

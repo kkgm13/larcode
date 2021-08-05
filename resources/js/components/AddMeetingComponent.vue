@@ -38,7 +38,7 @@ export default {
     },
     data: function() {
         return {
-            err: null,
+            // err: null,
             meetItem: {
                 title: '',
                 schedule: {
@@ -56,14 +56,11 @@ export default {
             // Actual posting information
             axios.post('/meetings', this.meetItem)
             .then(response => {
-                if(response.err != ""){
+                // alert(JSON.stringify(response.data))
+                if(response.data == []||response.data !=""){
                     alert(response.data.err)
-                    console.log(response)
-                    console.log(response.err)
                 } else {
                     alert('Meeting Added...')
-                    console.log(response)
-                    console.log(response.err)
                 }
             });
         },

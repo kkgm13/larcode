@@ -1884,7 +1884,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      err: null,
+      // err: null,
       meetItem: {
         title: '',
         schedule: {
@@ -1900,14 +1900,11 @@ __webpack_require__.r(__webpack_exports__);
     addMeet: function addMeet() {
       // Actual posting information
       axios.post('/meetings', this.meetItem).then(function (response) {
-        if (response.err != "") {
+        // alert(JSON.stringify(response.data))
+        if (response.data == [] || response.data != "") {
           alert(response.data.err);
-          console.log(response);
-          console.log(response.err);
         } else {
           alert('Meeting Added...');
-          console.log(response);
-          console.log(response.err);
         }
       });
     }

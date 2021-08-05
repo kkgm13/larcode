@@ -1,8 +1,6 @@
 @extends('layout')
 @section('content')
 <div id="app">
-    <example-component></example-component>
-    <br>
     <div class="container">
         <div class="row">
             <div class="col-8">

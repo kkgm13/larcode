@@ -62,7 +62,6 @@ class MeetingController extends Controller
             $meeting->title = $validatedData['title'];
             $meeting->save();
             (new ScheduleController)->store($request);
-            dd(response());
             return response()->json();
         }
     }

@@ -21,7 +21,7 @@ class MeetingTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function test_add_meeting(){
+    public function test_add_single_meeting(){
         $meet1 = [
             'title' => "Meeting 1",
             'schedule' => [
@@ -39,33 +39,23 @@ class MeetingTest extends TestCase
             'title' => $meet1['title']
         ]);
     }
-    public function test_single_conflict(){
+
+    public function test_add_repeat_meeting(){
         $meet1 = [
             'title' => "Meeting 2",
             'schedule' => [
-                'isRepeat' => false,
+                'isRepeat' => true,
                 'start' => '2021-10-10T16:00',
                 'duration' => 50,
-                'repDays' => null
+                'repDays' => 5
             ]
         ];
 
-        $meet2 = [
-            'title' => "Meeting 3",
-            'schedule' => [
-                'isRepeat' => false,
-                'start' => '2021-10-10T16:30',
-                'duration' => 50,
-                'repDays' => null
-            ]
-        ];
         Meeting::create($meet1);
+
         $this->assertCount(1, Meeting::all());
         $this->assertDatabaseHas('meetings', [
             'title' => $meet1['title']
         ]);
-        $response = Meeting::conflict($meet2); // Unsure of reason behind this despite it works in 
-        var_dump($response);
-        
     }
 }
