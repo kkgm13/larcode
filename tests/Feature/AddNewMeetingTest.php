@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Meeting;
 
 class AddNewMeetingTest extends TestCase
 {
@@ -21,6 +22,7 @@ class AddNewMeetingTest extends TestCase
 
         $response->assertStatus(200);
     }
+
     public function test_single_conflict(){
         $meet1 = [
             'title' => "Meeting 2",
@@ -41,12 +43,14 @@ class AddNewMeetingTest extends TestCase
                 'repDays' => null
             ]
         ];
-        Meeting::create($meet1);
+        $this->post('/meeting/', $meet1);
         $this->assertCount(1, Meeting::all());
         $this->assertDatabaseHas('meetings', [
             'title' => $meet1['title']
         ]);
-        Meeting::create($meet2); // Unsure of reason behind this despite it works in 
+        // $response1->assertJson(['data'=>[]]);s
+
+        $response2 = $this->post('/meeting/', $meet2);
         $this->assertDatabaseMissing('meetings', [
             'title' => $meet2['title']
         ]);

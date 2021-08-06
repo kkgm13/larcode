@@ -15,7 +15,6 @@ class MeetingSeeder extends Seeder
     {
         Meeting::factory()
             ->count(10)
-            ->meeting(1)
             ->create(); 
     }
 }

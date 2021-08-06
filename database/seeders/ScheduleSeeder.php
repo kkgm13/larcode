@@ -13,9 +13,10 @@ class ScheduleSeeder extends Seeder
      */
     public function run()
     {
+        $test = Meeting::all();
         Schedule::factory()
             ->create(5)
-            ->meeting(1)
+            ->for($test)
             ->create();
     }
 }
