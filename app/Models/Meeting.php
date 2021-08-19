@@ -7,14 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Meeting Model
+ *  The Core Model of what a meeting is
+ */
 class Meeting extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'title',
-        'duration',
-        'start'
+        'duration', // From an old variation
+        'start'     // From an old variation
     ];
 
     /**
@@ -72,7 +76,7 @@ class Meeting extends Model
 
     /**
      * Single Meeting Conflict Checks
-     *   For every known SINGLE entry regardless if it is a repeat
+     *   For every known SINGLE entry regardless if it is a repeated
      * 
      * @param Array Incoming Validated Meeting  
      */
