@@ -16,7 +16,7 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -26,7 +26,7 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -37,7 +37,6 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        // $test = $request->schedule;
         $meeting = Meeting::where('title', $request->title)->first();
         $sched = new Schedule();
         $sched->meetId = $meeting->id;
@@ -61,7 +60,7 @@ class ScheduleController extends Controller
      */
     public function show(Schedule $schedule)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -72,7 +71,7 @@ class ScheduleController extends Controller
      */
     public function edit(Schedule $schedule)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -84,7 +83,7 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, Schedule $schedule)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -95,6 +94,6 @@ class ScheduleController extends Controller
      */
     public function destroy(Schedule $schedule)
     {
-        //
+        return abort(404);
     }
 }

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Meeting;
 use Illuminate\Http\Request;
 
+/**
+ * Meeting Controller
+ * Controller section of the MVC
+ */
 class MeetingController extends Controller
 {
     /**
@@ -48,20 +52,21 @@ class MeetingController extends Controller
             'schedule.repDays' => 'nullable|required_if:schedule.isRepeat,true|numeric'
         ]);
 
+        // Do a Conflict Check
         $test = Meeting::conflict($validatedData);
 
-        // Insert the duration with the proper Time to use.        
+        // If the Result of conflict comes as NOT NULL       
         if(!is_null($test)){
+            // Return Response with Error
             return response()->json(
                 ['err' => $test]
             );
         } else {
             // Save and return
-            // $meeting = Meeting::create($validatedData);  
             $meeting = new Meeting();
             $meeting->title = $validatedData['title'];
-            $meeting->save();
-            (new ScheduleController)->store($request);
+            $meeting->save(); // Save just single meeting
+            (new ScheduleController)->store($request); // Create a new Schedule 
             return response()->json();
         }
     }
@@ -108,6 +113,6 @@ class MeetingController extends Controller
      */
     public function destroy(Meeting $meeting)
     {
-        //
+        return abort(404);
     }
 }

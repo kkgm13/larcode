@@ -3,7 +3,8 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 ## Pre-requisites
-* [Composer](https://getcomposer.org) that is vital to install Laravel & related dependencies
+* [Composer](https://getcomposer.org) that is vital to install Laravel & related PHP dependencies
+* npm & NodeJS that is vital to install Vue & related JS Dependency (including Jest)
 * LAMP Stack Application like XAMPP or MAMP (Must handle MySQL)
 
 ## Pre-setups
@@ -17,7 +18,7 @@ cp .env.example .env # Open .env and insert generated Application Key & MySQL Da
 # Install JS Dependencies
 npm install          
 ```
-Create the Database via the Stack Application's MyPHPAdmin
+Create the Database via the Stack Application's MyPHPAdmin 
 
 ``` bash
 # Migrate the tables over to MySQL DB
@@ -29,6 +30,12 @@ php artisan migrate:refresh --seed
 npm run watch 
 # Run Laravel itself
 php artisan serve
+```
+## To Test
+``` bash
+# MUST HAVE PHP DEPENDENCIES INSTALLED & Stack running
+vendor/bin/phpunit
+# Note: Any tests pertaining E stating Connection Refused is MySQL credentials and/or running
 ```
 ---------------
 ## About Laravel

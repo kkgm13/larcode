@@ -18,7 +18,11 @@ class Meeting extends Model
     ];
 
     /**
-     * Look at conflicting Meetings
+     * Any Conflict Checker
+     *  This houses the overall logic to identify which conflict method to run
+     * 
+     * @param Array Incoming Validated Meeting  
+     * @return String Either NULL or an String Error Message
      */
     public static function conflict($variable){
         if($variable['schedule']['isRepeat'] == true){
@@ -40,6 +44,7 @@ class Meeting extends Model
     /**
      * Multi-Meeting Conflict Checks
      *  Based on the parameter of isRepeat
+     * @param Array Incoming Validated Meeting  
      */
     private static function multiConflict($variable){
         $meetDate = Carbon::parse($variable['schedule']['start']);
@@ -51,7 +56,7 @@ class Meeting extends Model
                     $str_time = $i->schedule->duration;
                     sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
                     $time_seconds = isset($seconds) ? $hours * 3600 + $minutes * 60 + $seconds : $hours * 60 + $minutes;
-                    for($j = 0; $j < $variable['schedule']['repDays']; $j++){
+                    for($j = 0; $j < (365/$variable['schedule']['repDays']); $j++){ // Conflict by the next year (365/repdays)
                         $meet = $mainMeet->addDays(($variable['schedule']['repDays'] * $j));
                         $meetDBStart = Carbon::parse($i->schedule->start)->addDays(($i->schedule->repDays * $j));
                         $meetDBend = Carbon::parse($i->schedule->start)->addDays(($i->schedule->repDays * $j))->addSeconds($time_seconds);
@@ -68,20 +73,27 @@ class Meeting extends Model
     /**
      * Single Meeting Conflict Checks
      *   For every known SINGLE entry regardless if it is a repeat
+     * 
+     * @param Array Incoming Validated Meeting  
      */
     private static function singleConflict($variable){
         $meetDate = Carbon::parse($variable['schedule']['start']);
         // For each meeting in the database
         if(!empty(Meeting::with('schedule')->get())){
+            // // Convert Duration to Seconds to add (incoming)
+            $str_time = $variable['schedule']['duration'];
+            sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
+            $time_seconds = isset($seconds) ? $hours * 3600 + $minutes * 60 + $seconds : $hours * 60 + $minutes;
             foreach(Meeting::with('schedule')->get() as $i){
                 $carbonDate=Carbon::parse($i->schedule->start);
-                // Convert Duration to Seconds to add
-                $str_time = $i->schedule->duration;
-                sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
-                $time_seconds = isset($seconds) ? $hours * 3600 + $minutes * 60 + $seconds : $hours * 60 + $minutes;
+                // Convert Duration to Seconds to add (inList)
+                $str_time2 = $i->schedule->duration;
+                sscanf($str_time2, "%d:%d:%d", $hours2, $minutes2, $seconds2);
+                $time_seconds2 = isset($seconds2) ? $hours2 * 3600 + $minutes2 * 60 + $seconds2 : $hours2 * 60 + $minutes2;
                 // If the current meeting's start date time and end time is between the intended variable start date time and duration
-                $checker = $meetDate->between($carbonDate,Carbon::parse($i->schedule->start)->addSeconds($time_seconds));
-                if($checker){
+                $checker = $meetDate->between($carbonDate,Carbon::parse($i->schedule->start)->addSeconds($time_seconds2));
+                $checker2 = $carbonDate->between($meetDate,Carbon::parse($variable['schedule']['start'])->addSeconds($time_seconds));
+                if($checker||$checker2){
                     // Declare a Meeting Conflict
                     return "Error: Meeting Conflict Detected with meeting: ".$i->title.", when creating this meeting.";
                 }
@@ -89,10 +101,17 @@ class Meeting extends Model
         }
     }
 
+    /**
+     * Relation to Schedule
+     * @return Schedule Related Meeting Schedule 
+     */
     public function schedule(){
         return $this->hasOne(Schedule::class, 'meetId', 'id');
     }
 
+    /**
+     * Validation Rules
+     */
     public static function validationRules(){
         return [
             'title' => 'required|string',
@@ -105,6 +124,9 @@ class Meeting extends Model
         ];
     }
 
+    /**
+     * Validation Messages
+     */
     public static function validationMessages(){
         return [
             'title.required' => 'Please name this Scheduled Meeting',
