@@ -21,8 +21,9 @@ npm install
 Create the Database via the Stack Application's MyPHPAdmin 
 
 ``` bash
-# Migrate the tables over to MySQL DB
-php artisan migrate:refresh --seed
+# Migrate the tables over to MySQL DB Or populate with the sample.sql file to PHPMyAdmin
+php artisan migrate:refresh --seed # Possible Integrity issues will arise due to relation population
+
 ```
 ## To run
 ``` bash
@@ -35,7 +36,8 @@ php artisan serve
 ``` bash
 # MUST HAVE PHP DEPENDENCIES INSTALLED & Stack running
 vendor/bin/phpunit
-# Note: Any tests pertaining E stating Connection Refused is MySQL credentials and/or running
+# Note 1: Any tests pertaining E stating Connection Refused is MySQL credentials and/or running
+# Note 2: These tests WILL clear the database table data due to Laravel's RefreshDatabase class
 ```
 ---------------
 ## About Laravel
