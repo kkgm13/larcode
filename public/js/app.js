@@ -1927,11 +1927,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
     console.log("Single Meeting mounted.");
   },
-  props: ['meet']
+  props: ['schedule'],
+  methods: {
+    sql2date: function sql2date() {
+      this.schedule = this.schedule.map(function sched() {
+        var t = this.schedule.start.split(/[- :]/);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -1948,6 +1968,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _MeetingComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MeetingComponent */ "./resources/js/components/MeetingComponent.vue");
+//
 //
 //
 //
@@ -37908,21 +37929,53 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("li", [
-    _vm._v(
-      _vm._s(_vm.meet.title) +
-        " - " +
-        _vm._s(_vm.meet.schedule.start) +
-        " (Duration: " +
-        _vm._s(_vm.meet.schedule.duration) +
-        ") " +
-        _vm._s(
-          _vm.meet.schedule.isRepeat
-            ? "Repeating every " + _vm.meet.schedule.repDays + " day(s)"
-            : ""
+  return _vm.schedule.isRepeat
+    ? _c("ul", [
+        _c("li", [
+          _vm._v('"Repeating every ' + _vm._s(_vm.schedule.repDays) + " day(s)")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticStyle: { overflow: "scroll", width: "250px", height: "100px" }
+          },
+          [
+            _c("div", [
+              _c("li", [
+                _vm._v(
+                  _vm._s(
+                    new Date(Date.parse(_vm.schedule.start)).toDateString()
+                  ) +
+                    " @ " +
+                    _vm._s(
+                      new Date(
+                        Date.parse(_vm.schedule.start)
+                      ).toLocaleTimeString()
+                    )
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", [_vm._v(_vm._s(_vm.schedule.duration))]),
+              _vm._v(" "),
+              _c("hr")
+            ])
+          ]
         )
-    )
-  ])
+      ])
+    : _c("ul", [
+        _c("li", [
+          _vm._v(
+            _vm._s(new Date(Date.parse(_vm.schedule.start)).toDateString()) +
+              " @ " +
+              _vm._s(
+                new Date(Date.parse(_vm.schedule.start)).toLocaleTimeString()
+              )
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [_vm._v(_vm._s(_vm.schedule.duration))])
+      ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37949,15 +38002,23 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
-        _c(
-          "ul",
-          _vm._l(_vm.meetingList, function(meet) {
-            return _c("meet-item", { key: meet.id, attrs: { meet: meet } })
-          }),
-          1
-        )
-      ])
+      _c(
+        "div",
+        { staticClass: "col-md-8" },
+        _vm._l(_vm.meetingList, function(meet) {
+          return _c(
+            "ul",
+            { key: meet.id, attrs: { meet: meet } },
+            [
+              _c("li", [_vm._v(_vm._s(meet.title))]),
+              _vm._v(" "),
+              _c("meet-item", { attrs: { schedule: meet.schedule } })
+            ],
+            1
+          )
+        }),
+        0
+      )
     ])
   ])
 }

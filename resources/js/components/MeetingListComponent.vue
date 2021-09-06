@@ -1,9 +1,10 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8" >
-                <ul>
-                    <meet-item v-for="meet in meetingList" :meet="meet" :key="meet.id"></meet-item>                
+            <div class="col-md-8">
+                <ul v-for="meet in meetingList" :meet="meet" :key="meet.id">
+                    <li>{{ meet.title }}</li>
+                    <meet-item :schedule="meet.schedule"></meet-item>                
                 </ul>
             </div>
         </div>
